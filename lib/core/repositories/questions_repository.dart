@@ -20,10 +20,14 @@ class QuestionsRepository {
 
   Future<Either<List<Question>, Failure>> fetchQuestions({
     CancelToken? cancelToken,
+    required String categoryTag,
   }) async {
     try {
       final response = await _dio.get(
         questionsUrl,
+        queryParameters: {
+          'categories': categoryTag,
+        },
         cancelToken: cancelToken,
       );
       log('$response');

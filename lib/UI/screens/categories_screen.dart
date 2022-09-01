@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quizz/UI/category_utils.dart';
+import 'package:quizz/UI/widgets/category_item.dart';
 import 'package:quizz/UI/widgets/error_view.dart';
 import 'package:quizz/core/controllers/category_controller.dart';
 
@@ -20,7 +20,6 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Categories'),
@@ -46,31 +45,15 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
           },
           success: (s) {
             final data = s.data as Map<String, List<dynamic>>;
-            final categories = data.keys.toList();
+            final categories = data.entries.toList();
+            // final categories = data.keys.toList();
+            // final categoryTags = List<List<String>>.from(data.values);
             return GridView.count(
               crossAxisCount: 3,
               children: [
                 ...categories.map(
                   (category) {
-                    return Column(
-                      children: [
-                        CircleAvatar(
-                          radius: size.height * 0.04,
-                          backgroundColor: categoryColors(category),
-                          child: categoryIcon(category),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          category,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    );
+                    return CategoryItem(category: category);
                   },
                 )
               ],
