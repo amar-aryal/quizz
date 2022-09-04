@@ -21,12 +21,14 @@ class QuestionsRepository {
   Future<Either<List<Question>, Failure>> fetchQuestions({
     CancelToken? cancelToken,
     required String categoryTag,
+    int limit = 10,
   }) async {
     try {
       final response = await _dio.get(
         questionsUrl,
         queryParameters: {
           'categories': categoryTag,
+          'limit': limit,
         },
         cancelToken: cancelToken,
       );
