@@ -26,44 +26,85 @@ class QuestionPage extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(question.category),
+        title: Text(
+          question.category,
+        ),
+        elevation: 0,
       ),
       body: ValueListenableBuilder(
           valueListenable: optionSelecedNotifier,
           builder: (context, value, _) {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Text(question.question),
-                ),
-                ...options.map(
-                  (e) => GestureDetector(
-                    onTap: () {
-                      if (optionSelecedNotifier.value) return;
-
-                      optionSelecedNotifier.value = true;
-                      // final indexOfSelected = options.indexOf(e);
-                      // TODO: replace with simpler logic if possible
-                      tappedList[options.indexOf(e)] = true;
-                    },
-                    child: OptionItem(
-                      option: e,
-                      selectedColor: !optionSelecedNotifier.value ||
-                              !tappedList[options.indexOf(
-                                  e)] // checking tapped or not for color assignment
-                          ? null
-                          : e == question.correctAnswer
-                              ? Colors.green
-                              : Colors.red,
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 30,
+                    ),
+                    child: Text(
+                      question.question,
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                   ),
-                ),
-                TextButton(
-                  onPressed: onDonePressed,
-                  child: Text(isLastPage ? 'Done' : 'Next'),
-                )
-              ],
+                  ...options.map(
+                    (e) => GestureDetector(
+                      onTap: () {
+                        if (optionSelecedNotifier.value) return;
+
+                        optionSelecedNotifier.value = true;
+                        // final indexOfSelected = options.indexOf(e);
+                        // TODO: replace with simpler logic if possible
+                        tappedList[options.indexOf(e)] = true;
+                      },
+                      child: OptionItem(
+                        option: e,
+                        selectedColor: !optionSelecedNotifier.value ||
+                                !tappedList[options.indexOf(
+                                    e)] // checking tapped or not for color assignment
+                            ? null
+                            : e == question.correctAnswer
+                                ? Colors.green
+                                : Colors.red,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  TextButton(
+                    onPressed:
+                        optionSelecedNotifier.value ? onDonePressed : null,
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          side: const BorderSide(color: Colors.green),
+                        ),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            isLastPage ? 'Done' : 'Next',
+                            style: Theme.of(context).textTheme.button!.copyWith(
+                                  color: Colors.green,
+                                  fontSize: 16,
+                                ),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.green,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             );
           }),
     );
@@ -92,7 +133,7 @@ class OptionItem extends StatelessWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(25),
           )),
-      child: Row(
+      child: Wrap(
         children: [
           if (selectedColor != null) ...[
             Icon(
@@ -103,6 +144,8 @@ class OptionItem extends StatelessWidget {
           ],
           Text(
             option,
+            maxLines: null,
+            overflow: TextOverflow.visible,
             style: TextStyle(
               color: selectedColor != null ? Colors.white : Colors.black,
             ),
