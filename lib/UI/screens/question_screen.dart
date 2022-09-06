@@ -50,10 +50,13 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
             itemBuilder: (context, i) {
               return QuestionPage(
                 question: questions[i],
-                onDonePressed: () => _pagesController.nextPage(
-                  duration: const Duration(seconds: 1),
-                  curve: Curves.easeInOut,
-                ),
+                isLastPage: questions[i] == questions.last,
+                onDonePressed: () => questions[i] == questions.last
+                    ? Navigator.pop(context)
+                    : _pagesController.nextPage(
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.easeInOut,
+                      ),
               );
             },
           );
