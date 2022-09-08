@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quizz/UI/screens/question_screen.dart';
 import 'package:quizz/core/models/question.dart';
 
-class QuestionPage extends HookWidget {
+class QuestionPage extends HookConsumerWidget {
   const QuestionPage({
     Key? key,
     required this.question,
@@ -15,7 +17,7 @@ class QuestionPage extends HookWidget {
   final bool isLastPage;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final optionSelecedNotifier = useValueNotifier(false);
     final options = [
       ...[question.correctAnswer],
@@ -58,6 +60,10 @@ class QuestionPage extends HookWidget {
                         // final indexOfSelected = options.indexOf(e);
                         // TODO: replace with simpler logic if possible
                         tappedList[options.indexOf(e)] = true;
+
+                        if (e == question.correctAnswer) {
+                          ref.read(scoreProvider.notifier).state += 1;
+                        }
                       },
                       child: OptionItem(
                         option: e,

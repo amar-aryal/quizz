@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quizz/UI/screens/question_page.dart';
+import 'package:quizz/UI/screens/score_screen.dart';
 import 'package:quizz/UI/widgets/error_view.dart';
 import 'package:quizz/core/controllers/questions_controller.dart';
 import 'package:quizz/core/models/question.dart';
+
+final scoreProvider = StateProvider<int>((_) => 0);
 
 class QuestionScreen extends StatefulHookConsumerWidget {
   const QuestionScreen({
@@ -19,6 +22,10 @@ class QuestionScreen extends StatefulHookConsumerWidget {
 }
 
 class _QuestionScreenState extends ConsumerState<QuestionScreen> {
+  //TODO: custom loading indicator
+  //TODO: see correct answer (flip animation)
+  //TODO: questions progress indicator
+  //TODO: score screen and on pop return to category screen
   late final String categoryTag;
   @override
   void initState() {
@@ -34,7 +41,6 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: to display question one-by-one, use pageview
     final _pagesController = usePageController();
     return Scaffold(
       body: ref.watch(questionsNotifierProvider).maybeMap(
@@ -52,9 +58,14 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
                 question: questions[i],
                 isLastPage: questions[i] == questions.last,
                 onDonePressed: () => questions[i] == questions.last
-                    ? Navigator.pop(context)
+                    ? Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ScoreScreen(totalQuestions: questions.length),
+                        ),
+                      )
                     : _pagesController.nextPage(
-                        duration: const Duration(seconds: 1),
+                        duration: const Duration(milliseconds: 500),
                         curve: Curves.easeInOut,
                       ),
               );
