@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quizz/UI/screens/question_screen.dart';
+import 'package:quizz/UI/widgets/correct_answer_widget.dart';
 import 'package:quizz/core/models/question.dart';
 
 class QuestionPage extends HookConsumerWidget {
@@ -108,7 +109,9 @@ class QuestionPage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 30),
+                  const FlipWidget(),
                 ],
               ),
             );
