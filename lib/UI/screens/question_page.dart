@@ -102,16 +102,19 @@ class QuestionPage extends HookConsumerWidget {
                                   fontSize: 16,
                                 ),
                           ),
-                          const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.green,
-                          ),
+                          if (!isLastPage)
+                            const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.green,
+                            ),
                         ],
                       ),
                     ),
                   ),
                   const SizedBox(height: 30),
-                  const FlipWidget(),
+                  CorrectAnswerWidget(
+                    displayText: question.correctAnswer,
+                  ),
                 ],
               ),
             );

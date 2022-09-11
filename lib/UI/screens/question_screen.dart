@@ -23,9 +23,9 @@ class QuestionScreen extends StatefulHookConsumerWidget {
 
 class _QuestionScreenState extends ConsumerState<QuestionScreen> {
   //TODO: custom loading indicator
-  //TODO: see correct answer (flip animation)
+  //TODO: see correct answer (flip animation) - DONE
   //TODO: questions progress indicator
-  //TODO: score screen and on pop return to category screen
+  //TODO: score screen and on pop return to category screen - DONE
   late final String categoryTag;
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
                 question: questions[i],
                 isLastPage: questions[i] == questions.last,
                 onDonePressed: () => questions[i] == questions.last
-                    ? Navigator.of(context).push(
+                    ? Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) =>
                               ScoreScreen(totalQuestions: questions.length),
