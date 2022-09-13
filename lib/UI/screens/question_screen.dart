@@ -56,6 +56,7 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
             itemBuilder: (context, i) {
               return QuestionPage(
                 question: questions[i],
+                questions: questions,
                 isLastPage: questions[i] == questions.last,
                 onDonePressed: () => questions[i] == questions.last
                     ? Navigator.of(context).pushReplacement(

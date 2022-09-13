@@ -11,11 +11,13 @@ class QuestionPage extends HookConsumerWidget {
     required this.question,
     required this.onDonePressed,
     this.isLastPage = false,
+    required this.questions,
   }) : super(key: key);
 
   final Question question;
   final VoidCallback onDonePressed;
   final bool isLastPage;
+  final List<Question> questions;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,6 +42,23 @@ class QuestionPage extends HookConsumerWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ...questions.map(
+                        (e) => Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: CircleAvatar(
+                            radius: e == question ? 4 : 3,
+                            backgroundColor: e == question
+                                ? Colors.grey
+                                : Colors.grey.shade400,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
