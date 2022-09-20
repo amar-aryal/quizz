@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quizz/UI/widgets/category_item.dart';
+import 'package:quizz/UI/widgets/custom_loader.dart';
 import 'package:quizz/UI/widgets/error_view.dart';
 import 'package:quizz/core/controllers/category_controller.dart';
 
@@ -25,7 +26,9 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
         title: const Text('Categories'),
         elevation: 0,
       ),
-      body: Padding(
+      body:
+          // const CustomLoader(),
+          Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: ref.watch(categoryNotifierProvider).maybeMap(
           orElse: () {
@@ -33,7 +36,7 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
           },
           loading: (_) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CustomLoader(),
             );
           },
           error: (e) {
