@@ -21,6 +21,8 @@ class QuestionPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
+    final currentWidth = ref.watch(progressProvider);
     final optionSelecedNotifier = useValueNotifier(false);
     final options = [
       ...[question.correctAnswer],
@@ -43,22 +45,44 @@ class QuestionPage extends HookConsumerWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Stack(
                     children: [
-                      ...questions.map(
-                        (e) => Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: CircleAvatar(
-                            radius: e == question ? 4 : 3,
-                            backgroundColor: e == question
-                                ? Colors.grey
-                                : Colors.grey.shade400,
-                          ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 15,
                         ),
+                        width: size.width,
+                        height: size.height * 0.01,
+                        color: Colors.grey.shade300,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 15,
+                        ),
+                        width: currentWidth,
+                        height: size.height * 0.01,
+                        color: Colors.blue,
                       ),
                     ],
                   ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     ...questions.map(
+                  //       (e) => Padding(
+                  //         padding: const EdgeInsets.all(8),
+                  //         child: CircleAvatar(
+                  //           radius: e == question ? 4 : 3,
+                  //           backgroundColor: e == question
+                  //               ? Colors.grey
+                  //               : Colors.grey.shade400,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
