@@ -21,9 +21,6 @@ class _CustomLoaderState extends State<CustomLoader>
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
 
     _animation = Tween(end: 1.0, begin: 0.0).animate(_controller)
-      ..addListener(() {
-        setState(() {});
-      })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           _controller.repeat();
@@ -44,16 +41,20 @@ class _CustomLoaderState extends State<CustomLoader>
   @override
   Widget build(BuildContext context) {
     //* for flip animation
-    // return Transform(
-    //   alignment: FractionalOffset.center,
-    //   transform: Matrix4.identity()
-    //     ..setEntry(3, 2, 0.0015)
-    //     ..rotateY(pi * _animation.value),
-    //   child: CustomPaint(
-    //     painter: ShapePainter(),
-    //     child: Container(),
-    //   ),
-    // );
+    // return AnimatedBuilder(
+    //     animation: _controller,
+    //     builder: (context, _) {
+    //       return Transform(
+    //         alignment: FractionalOffset.center,
+    //         transform: Matrix4.identity()
+    //           ..setEntry(3, 2, 0.0015)
+    //           ..rotateY(pi * _animation.value),
+    //         child: CustomPaint(
+    //           painter: ShapePainter(),
+    //           child: Container(),
+    //         ),
+    //       );
+    //     });
     //* for rotating animation
     return RotationTransition(
       alignment: FractionalOffset.center,
@@ -81,12 +82,12 @@ class ShapePainter extends CustomPainter {
 
     Offset centerPoint = Offset(size.width / 2, size.height / 2);
 
-    canvas.drawCircle(centerPoint, 50, paint);
+    canvas.drawCircle(centerPoint, 20, paint);
 
-    canvas.drawArc(Rect.fromCircle(center: centerPoint, radius: 70), pi,
+    canvas.drawArc(Rect.fromCircle(center: centerPoint, radius: 40), pi,
         pi * 0.5, false, arcPaint);
 
-    canvas.drawArc(Rect.fromCircle(center: centerPoint, radius: 70), pi * 2,
+    canvas.drawArc(Rect.fromCircle(center: centerPoint, radius: 40), pi * 2,
         pi / 2, false, arcPaint);
   }
 

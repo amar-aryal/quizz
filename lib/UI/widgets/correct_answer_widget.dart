@@ -26,9 +26,6 @@ class _CorrectAnswerWidgetState extends State<CorrectAnswerWidget>
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
 
     _animation = Tween(end: 1.0, begin: 0.0).animate(_controller)
-      ..addListener(() {
-        setState(() {});
-      })
       ..addStatusListener((status) {
         _status = status;
       });
@@ -51,51 +48,56 @@ class _CorrectAnswerWidgetState extends State<CorrectAnswerWidget>
           _controller.reverse();
         }
       },
-      child: Transform(
-        alignment: FractionalOffset.center,
-        transform: Matrix4.identity()
-          ..setEntry(3, 2, 0.0015)
-          ..rotateY(pi * _animation.value),
-        child: Container(
-          width: size.width * 0.8,
-          height: size.height * 0.15,
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.shade300,
-                offset: const Offset(
-                  2.0,
-                  2.0,
-                ),
-              ),
-            ],
-          ),
-          child: Center(
-            child: _animation.value <= 0.5
-                ? Text(
-                    'Correct Answer',
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
-                          color: Colors.grey,
-                        ),
-                  )
-                : Transform(
-                    alignment: FractionalOffset.center,
-                    transform: Matrix4.identity()..rotateY(pi),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 15,
-                      ),
-                      child: Text(
-                        widget.displayText,
-                      ),
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, _) {
+          return Transform(
+            alignment: FractionalOffset.center,
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.0015)
+              ..rotateY(pi * _animation.value),
+            child: Container(
+              width: size.width * 0.8,
+              height: size.height * 0.15,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade300,
+                    offset: const Offset(
+                      2.0,
+                      2.0,
                     ),
                   ),
-          ),
-        ),
+                ],
+              ),
+              child: Center(
+                child: _animation.value <= 0.5
+                    ? Text(
+                        'Correct Answer',
+                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                              color: Colors.grey,
+                            ),
+                      )
+                    : Transform(
+                        alignment: FractionalOffset.center,
+                        transform: Matrix4.identity()..rotateY(pi),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 15,
+                          ),
+                          child: Text(
+                            widget.displayText,
+                          ),
+                        ),
+                      ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
