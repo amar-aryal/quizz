@@ -7,6 +7,7 @@ import 'package:quizz/UI/widgets/custom_loader.dart';
 import 'package:quizz/UI/widgets/error_view.dart';
 import 'package:quizz/core/controllers/questions_controller.dart';
 import 'package:quizz/core/models/question.dart';
+import 'package:quizz/utils/constants.dart';
 
 final scoreProvider = StateProvider<int>((_) => 0);
 
@@ -25,10 +26,6 @@ class QuestionScreen extends StatefulHookConsumerWidget {
 }
 
 class _QuestionScreenState extends ConsumerState<QuestionScreen> {
-  //TODO: custom loading indicator - DONE
-  //TODO: see correct answer (flip animation) - DONE
-  //TODO: questions progress indicator - DONE
-  //TODO: score screen and on pop return to category screen - DONE
   late final String categoryTag;
   @override
   void initState() {
@@ -52,6 +49,7 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
         return true;
       },
       child: Scaffold(
+        backgroundColor: scaffoldColor,
         body: ref.watch(questionsNotifierProvider).maybeMap(
           orElse: () {
             return const SizedBox();

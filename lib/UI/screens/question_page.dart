@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quizz/UI/screens/question_screen.dart';
 import 'package:quizz/UI/widgets/correct_answer_widget.dart';
 import 'package:quizz/core/models/question.dart';
+import 'package:quizz/utils/constants.dart';
 
 class QuestionPage extends HookConsumerWidget {
   const QuestionPage({
@@ -32,11 +33,13 @@ class QuestionPage extends HookConsumerWidget {
     final tappedList = options.map((e) => false).toList();
 
     return Scaffold(
+      backgroundColor: scaffoldColor,
       appBar: AppBar(
         title: Text(
           question.category,
         ),
         elevation: 0,
+        backgroundColor: appBarColor,
       ),
       body: ValueListenableBuilder(
           valueListenable: optionSelecedNotifier,
@@ -63,7 +66,7 @@ class QuestionPage extends HookConsumerWidget {
                         ),
                         width: currentWidth,
                         height: size.height * 0.01,
-                        color: Colors.blue,
+                        color: appBarColor,
                       ),
                     ],
                   ),

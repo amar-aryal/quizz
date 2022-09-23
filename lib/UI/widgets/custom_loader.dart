@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:quizz/utils/constants.dart';
 
 class CustomLoader extends StatefulWidget {
   const CustomLoader({Key? key}) : super(key: key);
@@ -70,19 +71,26 @@ class _CustomLoaderState extends State<CustomLoader>
 class ShapePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    var paint = Paint()
-      ..color = Colors.green
+    var circle1 = Paint()
+      ..color = appBarColor
       ..strokeWidth = 5
       ..strokeCap = StrokeCap.round;
 
     final arcPaint = Paint()
-      ..color = Colors.green
+      ..color = appBarColor
       ..strokeWidth = 5
       ..style = PaintingStyle.stroke;
 
+    var circle2 = Paint()
+      ..color = Colors.blueGrey.shade100
+      ..strokeWidth = 5
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
     Offset centerPoint = Offset(size.width / 2, size.height / 2);
 
-    canvas.drawCircle(centerPoint, 20, paint);
+    canvas.drawCircle(centerPoint, 25, circle1);
+    canvas.drawCircle(centerPoint, 40, circle2);
 
     canvas.drawArc(Rect.fromCircle(center: centerPoint, radius: 40), pi,
         pi * 0.5, false, arcPaint);

@@ -62,13 +62,13 @@ class _CorrectAnswerWidgetState extends State<CorrectAnswerWidget>
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                color: const Color(0xffEBE1C8),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.shade300,
                     offset: const Offset(
-                      2.0,
-                      2.0,
+                      5.0,
+                      5.0,
                     ),
                   ),
                 ],

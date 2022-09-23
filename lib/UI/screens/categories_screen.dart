@@ -4,6 +4,7 @@ import 'package:quizz/UI/widgets/category_item.dart';
 import 'package:quizz/UI/widgets/custom_loader.dart';
 import 'package:quizz/UI/widgets/error_view.dart';
 import 'package:quizz/core/controllers/category_controller.dart';
+import 'package:quizz/utils/constants.dart';
 
 class CategoriesScreen extends ConsumerStatefulWidget {
   const CategoriesScreen({Key? key}) : super(key: key);
@@ -22,9 +23,11 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: scaffoldColor,
       appBar: AppBar(
         title: const Text('Categories'),
         elevation: 0,
+        backgroundColor: appBarColor,
       ),
       body:
           // const CustomLoader(),
