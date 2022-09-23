@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quizz/UI/widgets/animations/custom_loader.dart';
 import 'package:quizz/UI/widgets/category_item.dart';
-import 'package:quizz/UI/widgets/custom_loader.dart';
 import 'package:quizz/UI/widgets/error_view.dart';
 import 'package:quizz/core/controllers/category_controller.dart';
 import 'package:quizz/utils/constants.dart';

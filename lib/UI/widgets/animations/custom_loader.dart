@@ -61,14 +61,14 @@ class _CustomLoaderState extends State<CustomLoader>
       alignment: FractionalOffset.center,
       turns: _controller,
       child: CustomPaint(
-        painter: ShapePainter(),
+        painter: _ShapePainter(),
         child: Container(),
       ),
     );
   }
 }
 
-class ShapePainter extends CustomPainter {
+class _ShapePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var circle1 = Paint()
@@ -98,8 +98,6 @@ class ShapePainter extends CustomPainter {
     canvas.drawArc(Rect.fromCircle(center: centerPoint, radius: 40), pi * 2,
         pi / 2, false, arcPaint);
   }
-
-  double doubleToAngle(double angle) => angle * pi / 180.0;
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
