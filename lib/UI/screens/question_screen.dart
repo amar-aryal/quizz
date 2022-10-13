@@ -56,39 +56,45 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
           },
           success: (s) {
             final questions = s.data as List<Question>;
-            return PageView.builder(
-              controller: _pagesController,
-              itemCount: questions.length,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, i) {
-                return QuestionPage(
-                  question: questions[i],
-                  questions: questions,
-                  isLastPage: questions[i] == questions.last,
-                  onDonePressed: () {
-                    final currentProgressValue =
-                        ref.read(progressProvider.notifier);
-
-                    questions[i] == questions.last
-                        ? Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ScoreScreen(totalQuestions: questions.length),
-                            ),
-                          )
-                        : _pagesController.nextPage(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeInOut,
-                          );
-                    currentProgressValue.state +=
-                        (size.width / questions.length);
-
-                    if (questions[i] == questions.last) {
-                      currentProgressValue.state = 0;
-                    }
-                  },
-                );
+            return WillPopScope(
+              onWillPop: () async {
+                ref.watch(scoreProvider.notifier).state = 0;
+                return true;
               },
+              child: PageView.builder(
+                controller: _pagesController,
+                itemCount: questions.length,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, i) {
+                  return QuestionPage(
+                    question: questions[i],
+                    questions: questions,
+                    isLastPage: questions[i] == questions.last,
+                    onDonePressed: () {
+                      final currentProgressValue =
+                          ref.read(progressProvider.notifier);
+
+                      questions[i] == questions.last
+                          ? Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => ScoreScreen(
+                                    totalQuestions: questions.length),
+                              ),
+                            )
+                          : _pagesController.nextPage(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                            );
+                      currentProgressValue.state +=
+                          (size.width / questions.length);
+
+                      if (questions[i] == questions.last) {
+                        currentProgressValue.state = 0;
+                      }
+                    },
+                  );
+                },
+              ),
             );
           },
           loading: (_) {
