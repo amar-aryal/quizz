@@ -70,22 +70,6 @@ class QuestionPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     ...questions.map(
-                  //       (e) => Padding(
-                  //         padding: const EdgeInsets.all(8),
-                  //         child: CircleAvatar(
-                  //           radius: e == question ? 4 : 3,
-                  //           backgroundColor: e == question
-                  //               ? Colors.grey
-                  //               : Colors.grey.shade400,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
@@ -104,7 +88,6 @@ class QuestionPage extends HookConsumerWidget {
                         if (optionSelecedNotifier.value) return;
 
                         optionSelecedNotifier.value = true;
-                        // final indexOfSelected = options.indexOf(e);
                         // TODO: replace with simpler logic if possible
                         tappedList[options.indexOf(e)] = true;
 

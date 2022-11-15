@@ -30,20 +30,52 @@ class ScoreScreen extends HookConsumerWidget {
             return AnimatedCrossFade(
               firstChild: const ScoreCalulationAnimaton(),
               secondChild: SafeArea(
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '$score',
-                        style: Theme.of(context).textTheme.displayLarge,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '$score',
+                          style: Theme.of(context).textTheme.displayLarge,
+                        ),
+                        Text(
+                          '/$totalQuestions',
+                          style: Theme.of(context).textTheme.displayLarge,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                            side: const BorderSide(color: Colors.green),
+                          ),
+                        ),
                       ),
-                      Text(
-                        '/$totalQuestions',
-                        style: Theme.of(context).textTheme.displayLarge,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Finish',
+                              style:
+                                  Theme.of(context).textTheme.button!.copyWith(
+                                        color: Colors.green,
+                                        fontSize: 16,
+                                      ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               crossFadeState: calculating.value
