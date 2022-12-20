@@ -48,7 +48,10 @@ class ScoreScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 30),
                     TextButton(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () {
+                        ref.watch(scoreProvider.notifier).state = 0;
+                        Navigator.pop(context);
+                      },
                       style: ButtonStyle(
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
