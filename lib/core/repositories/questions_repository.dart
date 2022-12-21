@@ -21,7 +21,7 @@ class QuestionsRepository {
   Future<Either<List<Question>, Failure>> fetchQuestions({
     CancelToken? cancelToken,
     required String categoryTag,
-    int limit = 10,
+    required int limit,
   }) async {
     try {
       final response = await _dio.get(

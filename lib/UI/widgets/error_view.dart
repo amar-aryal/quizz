@@ -12,28 +12,41 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Icon(
+            Icons.warning_amber,
+            color: Colors.grey[400],
+            size: size.width / 3,
+          ),
           Text(
             errorText,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.grey[500],
+            style: const TextStyle(
+              color: Colors.grey,
               fontSize: 20,
             ),
           ),
           const SizedBox(height: 15),
-          MaterialButton(
+          TextButton(
             onPressed: onPressed,
-            color: Colors.blue,
-            child: const Text(
-              'Try again',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  side: const BorderSide(color: Colors.green),
+                ),
               ),
+            ),
+            child: Text(
+              'Try again',
+              style: Theme.of(context).textTheme.button!.copyWith(
+                    color: Colors.green,
+                    fontSize: 16,
+                  ),
             ),
           ),
         ],

@@ -17,9 +17,11 @@ class QuestionScreen extends StatefulHookConsumerWidget {
   const QuestionScreen({
     Key? key,
     required this.category,
+    this.limit = 10,
   }) : super(key: key);
 
   final MapEntry<String, List<dynamic>> category;
+  final int limit;
 
   @override
   ConsumerState<QuestionScreen> createState() => _QuestionScreenState();
@@ -34,9 +36,10 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
         .toLowerCase()
         .replaceAll(' ', '_')
         .replaceAll('&', 'and');
-    ref
-        .read(questionsNotifierProvider.notifier)
-        .fetchQuestions(categoryTag: categoryTag);
+    ref.read(questionsNotifierProvider.notifier).fetchQuestions(
+          categoryTag: categoryTag,
+          limit: widget.limit,
+        );
   }
 
   @override
@@ -104,10 +107,13 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
           },
           error: (e) {
             return ErrorView(
-                errorText: e.failure.reason,
-                onPressed: () => ref
-                    .read(questionsNotifierProvider.notifier)
-                    .fetchQuestions(categoryTag: categoryTag));
+              errorText: e.failure.reason,
+              onPressed: () =>
+                  ref.read(questionsNotifierProvider.notifier).fetchQuestions(
+                        categoryTag: categoryTag,
+                        limit: widget.limit,
+                      ),
+            );
           },
         ),
       ),

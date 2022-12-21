@@ -25,10 +25,14 @@ class QuestionsController<T> extends StateNotifier<BaseState> {
 
   Future<void> fetchQuestions({
     required String categoryTag,
+    required int limit,
   }) async {
     state = const BaseState.loading();
     final response = await _repo.fetchQuestions(
-        categoryTag: categoryTag, cancelToken: _cancelToken);
+      categoryTag: categoryTag,
+      cancelToken: _cancelToken,
+      limit: limit,
+    );
 
     state = response.fold(
       (questions) => BaseState.success(data: questions),
