@@ -47,7 +47,7 @@ class QuestionPage extends HookConsumerWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 30),
                   Stack(
                     children: [
                       Container(

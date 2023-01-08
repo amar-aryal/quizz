@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizz/UI/category_utils.dart';
 import 'package:quizz/UI/screens/question_screen.dart';
+import 'package:quizz/UI/widgets/question_options_dialog.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
@@ -49,70 +50,6 @@ class CategoryItem extends StatelessWidget {
           style: const TextStyle(
             fontSize: 16,
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class QuestionOptionsDialog extends StatelessWidget {
-  const QuestionOptionsDialog({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    int? totalQuestions;
-
-    return AlertDialog(
-      title: const Text('Choose total questions'),
-      content: Column(
-        children: [
-          const Text('How many questions would you like to answer?'),
-          InkWell(
-            onTap: () {
-              totalQuestions = 5;
-              Navigator.pop(context, totalQuestions);
-            },
-            child: const Text('5'),
-          ),
-          InkWell(
-            onTap: () {
-              totalQuestions = 10;
-              Navigator.pop(context, totalQuestions);
-            },
-            child: const Text('10'),
-          ),
-          InkWell(
-            onTap: () {
-              totalQuestions = 20;
-              Navigator.pop(context, totalQuestions);
-            },
-            child: const Text('20'),
-          ),
-          InkWell(
-            onTap: () {
-              totalQuestions = 30;
-              Navigator.pop(context, totalQuestions);
-            },
-            child: const Text('30'),
-          ),
-          InkWell(
-            onTap: () {
-              totalQuestions = 10;
-              Navigator.pop(context, totalQuestions);
-            },
-            child: const Text('10'),
-          ),
-        ],
-      ),
-      actions: <Widget>[
-        TextButton(
-          style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
-          ),
-          child: const Text('Close'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
         ),
       ],
     );
