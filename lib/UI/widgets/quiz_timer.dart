@@ -1,8 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quizz/UI/screens/score_screen.dart';
+import 'package:quizz/app_setup/app_models/base_state.dart';
+import 'package:quizz/core/notifiers/quiz_timer_notifier.dart';
 
 class QuizTimer extends ConsumerStatefulWidget {
   final int totalQuestions;
@@ -13,46 +13,41 @@ class QuizTimer extends ConsumerStatefulWidget {
 }
 
 class _QuizTimerState extends ConsumerState<QuizTimer> {
-  Timer? countdownTimer;
-  Duration duration = const Duration(minutes: 1);
+  //** issues: realtime time not updating */
   @override
   void initState() {
     super.initState();
-    startTimer();
+    ref.read(quizTimerControllerProvider.notifier).setTimer();
   }
 
   @override
   void dispose() {
-    countdownTimer!.cancel();
+    ref.read(quizTimerControllerProvider.notifier).cancelTimer();
+
     super.dispose();
-  }
-
-  void startTimer() {
-    countdownTimer =
-        Timer.periodic(const Duration(seconds: 1), (_) => setCountDown());
-  }
-
-  void setCountDown() {
-    const reduceSecondsBy = 1;
-    setState(() {
-      final seconds = duration.inSeconds - reduceSecondsBy;
-      if (seconds < 0) {
-        countdownTimer!.cancel();
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => ScoreScreen(
-              totalQuestions: widget.totalQuestions,
-            ),
-          ),
-        );
-      } else {
-        duration = Duration(seconds: seconds);
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<BaseState>(
+      quizTimerControllerProvider,
+      (previous, state) {
+        state.maybeWhen(
+          orElse: () {},
+          loading: () {},
+          success: (data) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) =>
+                    ScoreScreen(totalQuestions: widget.totalQuestions),
+              ),
+            );
+          },
+        );
+      },
+    );
+    final duration =
+        ref.watch(quizTimerControllerProvider.notifier).getDuration;
     final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
     final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
     return Text(

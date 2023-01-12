@@ -6,6 +6,8 @@ import 'package:quizz/utils/constants.dart';
 final timerOnProvider = StateProvider<bool>((_) => false);
 
 class QuestionOptionsDialog extends HookConsumerWidget {
+  //TODO: if timerOnProvider is to be refreshed, then set it to false on initstate here
+  //TODO: or when finish btn is clicked reset its value (this is more convenient)
   const QuestionOptionsDialog({Key? key}) : super(key: key);
 
   @override

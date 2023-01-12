@@ -52,6 +52,8 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
     return WillPopScope(
       onWillPop: () async {
         ref.read(progressProvider.notifier).state = 0;
+        ref.watch(scoreProvider.notifier).state = 0;
+
         return true;
       },
       child: Scaffold(
@@ -62,55 +64,49 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
           },
           success: (s) {
             final questions = s.data as List<Question>;
-            return WillPopScope(
-              onWillPop: () async {
-                ref.watch(scoreProvider.notifier).state = 0;
-                return true;
-              },
-              child: Stack(
-                children: [
-                  PageView.builder(
-                    controller: _pagesController,
-                    itemCount: questions.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, i) {
-                      return QuestionPage(
-                        question: questions[i],
-                        questions: questions,
-                        isLastPage: questions[i] == questions.last,
-                        onDonePressed: () {
-                          final currentProgressValue =
-                              ref.read(progressProvider.notifier);
+            return Stack(
+              children: [
+                PageView.builder(
+                  controller: _pagesController,
+                  itemCount: questions.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, i) {
+                    return QuestionPage(
+                      question: questions[i],
+                      questions: questions,
+                      isLastPage: questions[i] == questions.last,
+                      onDonePressed: () {
+                        final currentProgressValue =
+                            ref.read(progressProvider.notifier);
 
-                          questions[i] == questions.last
-                              ? Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => ScoreScreen(
-                                        totalQuestions: questions.length),
-                                  ),
-                                )
-                              : _pagesController.nextPage(
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.easeInOut,
-                                );
-                          currentProgressValue.state +=
-                              (size.width / questions.length);
+                        questions[i] == questions.last
+                            ? Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => ScoreScreen(
+                                      totalQuestions: questions.length),
+                                ),
+                              )
+                            : _pagesController.nextPage(
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.easeInOut,
+                              );
+                        currentProgressValue.state +=
+                            (size.width / questions.length);
 
-                          if (questions[i] == questions.last) {
-                            currentProgressValue.state = 0;
-                          }
-                        },
-                      );
-                    },
+                        if (questions[i] == questions.last) {
+                          currentProgressValue.state = 0;
+                        }
+                      },
+                    );
+                  },
+                ),
+                if (showTimer)
+                  Positioned(
+                    right: 10,
+                    top: size.height / 9,
+                    child: QuizTimer(totalQuestions: questions.length),
                   ),
-                  if (showTimer)
-                    Positioned(
-                      right: 10,
-                      top: size.height / 9,
-                      child: QuizTimer(totalQuestions: questions.length),
-                    ),
-                ],
-              ),
+              ],
             );
           },
           loading: (_) {
