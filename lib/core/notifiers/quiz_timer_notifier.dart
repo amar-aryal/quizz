@@ -33,7 +33,7 @@ class QuizTimerNotifier extends StateNotifier<BaseState> {
       _read(progressProvider.notifier).state = 0;
       state = const BaseState.success();
     } else {
-      state = const BaseState.loading();
+      state = BaseState.loading(data: duration);
     }
   }
 

@@ -11,7 +11,7 @@ class BaseState<T> with _$BaseState<T> {
   const factory BaseState.initial() = BaseInitial<T>;
 
   /// Auth loading state
-  const factory BaseState.loading() = BaseLoading<T>;
+  const factory BaseState.loading({T? data}) = BaseLoading<T>;
 
   /// Auth error state
   const factory BaseState.error(Failure failure) = BaseError<T>;

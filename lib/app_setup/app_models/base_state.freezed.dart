@@ -19,7 +19,7 @@ mixin _$BaseState<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(T? data) loading,
     required TResult Function(Failure failure) error,
     required TResult Function(T? data) success,
   }) =>
@@ -27,7 +27,7 @@ mixin _$BaseState<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(T? data)? loading,
     TResult Function(Failure failure)? error,
     TResult Function(T? data)? success,
   }) =>
@@ -35,7 +35,7 @@ mixin _$BaseState<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(T? data)? loading,
     TResult Function(Failure failure)? error,
     TResult Function(T? data)? success,
     required TResult orElse(),
@@ -126,7 +126,7 @@ class _$BaseInitial<T> implements BaseInitial<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(T? data) loading,
     required TResult Function(Failure failure) error,
     required TResult Function(T? data) success,
   }) {
@@ -137,7 +137,7 @@ class _$BaseInitial<T> implements BaseInitial<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(T? data)? loading,
     TResult Function(Failure failure)? error,
     TResult Function(T? data)? success,
   }) {
@@ -148,7 +148,7 @@ class _$BaseInitial<T> implements BaseInitial<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(T? data)? loading,
     TResult Function(Failure failure)? error,
     TResult Function(T? data)? success,
     required TResult orElse(),
@@ -206,6 +206,7 @@ abstract class _$$BaseLoadingCopyWith<T, $Res> {
   factory _$$BaseLoadingCopyWith(
           _$BaseLoading<T> value, $Res Function(_$BaseLoading<T>) then) =
       __$$BaseLoadingCopyWithImpl<T, $Res>;
+  $Res call({T? data});
 }
 
 /// @nodoc
@@ -218,60 +219,83 @@ class __$$BaseLoadingCopyWithImpl<T, $Res>
 
   @override
   _$BaseLoading<T> get _value => super._value as _$BaseLoading<T>;
+
+  @override
+  $Res call({
+    Object? data = freezed,
+  }) {
+    return _then(_$BaseLoading<T>(
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as T?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$BaseLoading<T> implements BaseLoading<T> {
-  const _$BaseLoading();
+  const _$BaseLoading({this.data});
+
+  @override
+  final T? data;
 
   @override
   String toString() {
-    return 'BaseState<$T>.loading()';
+    return 'BaseState<$T>.loading(data: $data)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$BaseLoading<T>);
+        (other.runtimeType == runtimeType &&
+            other is _$BaseLoading<T> &&
+            const DeepCollectionEquality().equals(other.data, data));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$BaseLoadingCopyWith<T, _$BaseLoading<T>> get copyWith =>
+      __$$BaseLoadingCopyWithImpl<T, _$BaseLoading<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(T? data) loading,
     required TResult Function(Failure failure) error,
     required TResult Function(T? data) success,
   }) {
-    return loading();
+    return loading(data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(T? data)? loading,
     TResult Function(Failure failure)? error,
     TResult Function(T? data)? success,
   }) {
-    return loading?.call();
+    return loading?.call(data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(T? data)? loading,
     TResult Function(Failure failure)? error,
     TResult Function(T? data)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading();
+      return loading(data);
     }
     return orElse();
   }
@@ -315,7 +339,12 @@ class _$BaseLoading<T> implements BaseLoading<T> {
 }
 
 abstract class BaseLoading<T> implements BaseState<T> {
-  const factory BaseLoading() = _$BaseLoading<T>;
+  const factory BaseLoading({final T? data}) = _$BaseLoading<T>;
+
+  T? get data;
+  @JsonKey(ignore: true)
+  _$$BaseLoadingCopyWith<T, _$BaseLoading<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -384,7 +413,7 @@ class _$BaseError<T> implements BaseError<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(T? data) loading,
     required TResult Function(Failure failure) error,
     required TResult Function(T? data) success,
   }) {
@@ -395,7 +424,7 @@ class _$BaseError<T> implements BaseError<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(T? data)? loading,
     TResult Function(Failure failure)? error,
     TResult Function(T? data)? success,
   }) {
@@ -406,7 +435,7 @@ class _$BaseError<T> implements BaseError<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(T? data)? loading,
     TResult Function(Failure failure)? error,
     TResult Function(T? data)? success,
     required TResult orElse(),
@@ -530,7 +559,7 @@ class _$BaseSuccess<T> implements BaseSuccess<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(T? data) loading,
     required TResult Function(Failure failure) error,
     required TResult Function(T? data) success,
   }) {
@@ -541,7 +570,7 @@ class _$BaseSuccess<T> implements BaseSuccess<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(T? data)? loading,
     TResult Function(Failure failure)? error,
     TResult Function(T? data)? success,
   }) {
@@ -552,7 +581,7 @@ class _$BaseSuccess<T> implements BaseSuccess<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(T? data)? loading,
     TResult Function(Failure failure)? error,
     TResult Function(T? data)? success,
     required TResult orElse(),
