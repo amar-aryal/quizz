@@ -5,4 +5,6 @@ A simple quiz app that uses The Trivia API to fetch quiz. The user chooses a cat
 ## API
 https://the-trivia-api.com/
 
+## Demo
+![Screen_Recording_20230218-165339 1](https://user-images.githubusercontent.com/69635164/219857829-fa520d3c-b62f-449f-b357-c23517f797e3.gif)
 
