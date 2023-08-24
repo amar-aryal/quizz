@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'base_state.dart';
 
@@ -26,10 +26,10 @@ mixin _$BaseState<T> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(T? data)? loading,
-    TResult Function(Failure failure)? error,
-    TResult Function(T? data)? success,
+    TResult? Function()? initial,
+    TResult? Function(T? data)? loading,
+    TResult? Function(Failure failure)? error,
+    TResult? Function(T? data)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,10 +51,10 @@ mixin _$BaseState<T> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BaseInitial<T> value)? initial,
-    TResult Function(BaseLoading<T> value)? loading,
-    TResult Function(BaseError<T> value)? error,
-    TResult Function(BaseSuccess<T> value)? success,
+    TResult? Function(BaseInitial<T> value)? initial,
+    TResult? Function(BaseLoading<T> value)? loading,
+    TResult? Function(BaseError<T> value)? error,
+    TResult? Function(BaseSuccess<T> value)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,16 +72,18 @@ mixin _$BaseState<T> {
 abstract class $BaseStateCopyWith<T, $Res> {
   factory $BaseStateCopyWith(
           BaseState<T> value, $Res Function(BaseState<T>) then) =
-      _$BaseStateCopyWithImpl<T, $Res>;
+      _$BaseStateCopyWithImpl<T, $Res, BaseState<T>>;
 }
 
 /// @nodoc
-class _$BaseStateCopyWithImpl<T, $Res> implements $BaseStateCopyWith<T, $Res> {
+class _$BaseStateCopyWithImpl<T, $Res, $Val extends BaseState<T>>
+    implements $BaseStateCopyWith<T, $Res> {
   _$BaseStateCopyWithImpl(this._value, this._then);
 
-  final BaseState<T> _value;
   // ignore: unused_field
-  final $Res Function(BaseState<T>) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -93,14 +95,11 @@ abstract class _$$BaseInitialCopyWith<T, $Res> {
 
 /// @nodoc
 class __$$BaseInitialCopyWithImpl<T, $Res>
-    extends _$BaseStateCopyWithImpl<T, $Res>
+    extends _$BaseStateCopyWithImpl<T, $Res, _$BaseInitial<T>>
     implements _$$BaseInitialCopyWith<T, $Res> {
   __$$BaseInitialCopyWithImpl(
       _$BaseInitial<T> _value, $Res Function(_$BaseInitial<T>) _then)
-      : super(_value, (v) => _then(v as _$BaseInitial<T>));
-
-  @override
-  _$BaseInitial<T> get _value => super._value as _$BaseInitial<T>;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -136,10 +135,10 @@ class _$BaseInitial<T> implements BaseInitial<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(T? data)? loading,
-    TResult Function(Failure failure)? error,
-    TResult Function(T? data)? success,
+    TResult? Function()? initial,
+    TResult? Function(T? data)? loading,
+    TResult? Function(Failure failure)? error,
+    TResult? Function(T? data)? success,
   }) {
     return initial?.call();
   }
@@ -173,10 +172,10 @@ class _$BaseInitial<T> implements BaseInitial<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BaseInitial<T> value)? initial,
-    TResult Function(BaseLoading<T> value)? loading,
-    TResult Function(BaseError<T> value)? error,
-    TResult Function(BaseSuccess<T> value)? success,
+    TResult? Function(BaseInitial<T> value)? initial,
+    TResult? Function(BaseLoading<T> value)? loading,
+    TResult? Function(BaseError<T> value)? error,
+    TResult? Function(BaseSuccess<T> value)? success,
   }) {
     return initial?.call(this);
   }
@@ -206,26 +205,25 @@ abstract class _$$BaseLoadingCopyWith<T, $Res> {
   factory _$$BaseLoadingCopyWith(
           _$BaseLoading<T> value, $Res Function(_$BaseLoading<T>) then) =
       __$$BaseLoadingCopyWithImpl<T, $Res>;
+  @useResult
   $Res call({T? data});
 }
 
 /// @nodoc
 class __$$BaseLoadingCopyWithImpl<T, $Res>
-    extends _$BaseStateCopyWithImpl<T, $Res>
+    extends _$BaseStateCopyWithImpl<T, $Res, _$BaseLoading<T>>
     implements _$$BaseLoadingCopyWith<T, $Res> {
   __$$BaseLoadingCopyWithImpl(
       _$BaseLoading<T> _value, $Res Function(_$BaseLoading<T>) _then)
-      : super(_value, (v) => _then(v as _$BaseLoading<T>));
+      : super(_value, _then);
 
-  @override
-  _$BaseLoading<T> get _value => super._value as _$BaseLoading<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? data = freezed,
   }) {
     return _then(_$BaseLoading<T>(
-      data: data == freezed
+      data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T?,
@@ -260,6 +258,7 @@ class _$BaseLoading<T> implements BaseLoading<T> {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$BaseLoadingCopyWith<T, _$BaseLoading<T>> get copyWith =>
       __$$BaseLoadingCopyWithImpl<T, _$BaseLoading<T>>(this, _$identity);
 
@@ -277,10 +276,10 @@ class _$BaseLoading<T> implements BaseLoading<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(T? data)? loading,
-    TResult Function(Failure failure)? error,
-    TResult Function(T? data)? success,
+    TResult? Function()? initial,
+    TResult? Function(T? data)? loading,
+    TResult? Function(Failure failure)? error,
+    TResult? Function(T? data)? success,
   }) {
     return loading?.call(data);
   }
@@ -314,10 +313,10 @@ class _$BaseLoading<T> implements BaseLoading<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BaseInitial<T> value)? initial,
-    TResult Function(BaseLoading<T> value)? loading,
-    TResult Function(BaseError<T> value)? error,
-    TResult Function(BaseSuccess<T> value)? success,
+    TResult? Function(BaseInitial<T> value)? initial,
+    TResult? Function(BaseLoading<T> value)? loading,
+    TResult? Function(BaseError<T> value)? error,
+    TResult? Function(BaseSuccess<T> value)? success,
   }) {
     return loading?.call(this);
   }
@@ -352,26 +351,25 @@ abstract class _$$BaseErrorCopyWith<T, $Res> {
   factory _$$BaseErrorCopyWith(
           _$BaseError<T> value, $Res Function(_$BaseError<T>) then) =
       __$$BaseErrorCopyWithImpl<T, $Res>;
+  @useResult
   $Res call({Failure failure});
 }
 
 /// @nodoc
 class __$$BaseErrorCopyWithImpl<T, $Res>
-    extends _$BaseStateCopyWithImpl<T, $Res>
+    extends _$BaseStateCopyWithImpl<T, $Res, _$BaseError<T>>
     implements _$$BaseErrorCopyWith<T, $Res> {
   __$$BaseErrorCopyWithImpl(
       _$BaseError<T> _value, $Res Function(_$BaseError<T>) _then)
-      : super(_value, (v) => _then(v as _$BaseError<T>));
+      : super(_value, _then);
 
-  @override
-  _$BaseError<T> get _value => super._value as _$BaseError<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? failure = freezed,
+    Object? failure = null,
   }) {
     return _then(_$BaseError<T>(
-      failure == freezed
+      null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Failure,
@@ -397,15 +395,15 @@ class _$BaseError<T> implements BaseError<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BaseError<T> &&
-            const DeepCollectionEquality().equals(other.failure, failure));
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(failure));
+  int get hashCode => Object.hash(runtimeType, failure);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$BaseErrorCopyWith<T, _$BaseError<T>> get copyWith =>
       __$$BaseErrorCopyWithImpl<T, _$BaseError<T>>(this, _$identity);
 
@@ -423,10 +421,10 @@ class _$BaseError<T> implements BaseError<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(T? data)? loading,
-    TResult Function(Failure failure)? error,
-    TResult Function(T? data)? success,
+    TResult? Function()? initial,
+    TResult? Function(T? data)? loading,
+    TResult? Function(Failure failure)? error,
+    TResult? Function(T? data)? success,
   }) {
     return error?.call(failure);
   }
@@ -460,10 +458,10 @@ class _$BaseError<T> implements BaseError<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BaseInitial<T> value)? initial,
-    TResult Function(BaseLoading<T> value)? loading,
-    TResult Function(BaseError<T> value)? error,
-    TResult Function(BaseSuccess<T> value)? success,
+    TResult? Function(BaseInitial<T> value)? initial,
+    TResult? Function(BaseLoading<T> value)? loading,
+    TResult? Function(BaseError<T> value)? error,
+    TResult? Function(BaseSuccess<T> value)? success,
   }) {
     return error?.call(this);
   }
@@ -498,26 +496,25 @@ abstract class _$$BaseSuccessCopyWith<T, $Res> {
   factory _$$BaseSuccessCopyWith(
           _$BaseSuccess<T> value, $Res Function(_$BaseSuccess<T>) then) =
       __$$BaseSuccessCopyWithImpl<T, $Res>;
+  @useResult
   $Res call({T? data});
 }
 
 /// @nodoc
 class __$$BaseSuccessCopyWithImpl<T, $Res>
-    extends _$BaseStateCopyWithImpl<T, $Res>
+    extends _$BaseStateCopyWithImpl<T, $Res, _$BaseSuccess<T>>
     implements _$$BaseSuccessCopyWith<T, $Res> {
   __$$BaseSuccessCopyWithImpl(
       _$BaseSuccess<T> _value, $Res Function(_$BaseSuccess<T>) _then)
-      : super(_value, (v) => _then(v as _$BaseSuccess<T>));
+      : super(_value, _then);
 
-  @override
-  _$BaseSuccess<T> get _value => super._value as _$BaseSuccess<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? data = freezed,
   }) {
     return _then(_$BaseSuccess<T>(
-      data: data == freezed
+      data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T?,
@@ -552,6 +549,7 @@ class _$BaseSuccess<T> implements BaseSuccess<T> {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$BaseSuccessCopyWith<T, _$BaseSuccess<T>> get copyWith =>
       __$$BaseSuccessCopyWithImpl<T, _$BaseSuccess<T>>(this, _$identity);
 
@@ -569,10 +567,10 @@ class _$BaseSuccess<T> implements BaseSuccess<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(T? data)? loading,
-    TResult Function(Failure failure)? error,
-    TResult Function(T? data)? success,
+    TResult? Function()? initial,
+    TResult? Function(T? data)? loading,
+    TResult? Function(Failure failure)? error,
+    TResult? Function(T? data)? success,
   }) {
     return success?.call(data);
   }
@@ -606,10 +604,10 @@ class _$BaseSuccess<T> implements BaseSuccess<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BaseInitial<T> value)? initial,
-    TResult Function(BaseLoading<T> value)? loading,
-    TResult Function(BaseError<T> value)? error,
-    TResult Function(BaseSuccess<T> value)? success,
+    TResult? Function(BaseInitial<T> value)? initial,
+    TResult? Function(BaseLoading<T> value)? loading,
+    TResult? Function(BaseError<T> value)? error,
+    TResult? Function(BaseSuccess<T> value)? success,
   }) {
     return success?.call(this);
   }
