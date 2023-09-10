@@ -17,7 +17,9 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
   @override
   void initState() {
     super.initState();
-    ref.read(categoryNotifierProvider.notifier).getAllCategories();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(categoryNotifierProvider.notifier).getAllCategories();
+    });
   }
 
   @override

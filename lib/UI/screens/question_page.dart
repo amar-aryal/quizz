@@ -126,7 +126,10 @@ class QuestionPage extends HookConsumerWidget {
                         children: [
                           Text(
                             isLastPage ? 'Done' : 'Next',
-                            style: Theme.of(context).textTheme.button!.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(
                                   color: Colors.green,
                                   fontSize: 16,
                                 ),

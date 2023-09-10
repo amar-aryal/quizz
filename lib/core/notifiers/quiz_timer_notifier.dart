@@ -9,13 +9,13 @@ final quizTimerControllerProvider =
         quizTimerController);
 
 QuizTimerNotifier quizTimerController(Ref ref) {
-  return QuizTimerNotifier(ref.read);
+  return QuizTimerNotifier(ref);
 }
 
 class QuizTimerNotifier extends StateNotifier<BaseState> {
-  QuizTimerNotifier(this._read) : super(const BaseState.initial());
+  QuizTimerNotifier(this._ref) : super(const BaseState.initial());
 
-  final Reader _read;
+  final Ref _ref;
   Duration duration = const Duration(minutes: 1);
 
   late Timer timer;
@@ -30,7 +30,7 @@ class QuizTimerNotifier extends StateNotifier<BaseState> {
 
     if (seconds < 0) {
       cancelTimer();
-      _read(progressProvider.notifier).state = 0;
+      _ref.read(progressProvider.notifier).state = 0;
       state = const BaseState.success();
     } else {
       state = BaseState.loading(data: duration);

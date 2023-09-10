@@ -63,7 +63,7 @@ class _QuizTimerState extends ConsumerState<QuizTimer> {
             backgroundColor: Colors.white,
             child: Text(
               '$minutes:$seconds',
-              style: Theme.of(context).textTheme.headline5!.copyWith(
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     color: duration.inMinutes == 0 && duration.inSeconds < 10
                         ? Colors.red
                         : appBarColor,

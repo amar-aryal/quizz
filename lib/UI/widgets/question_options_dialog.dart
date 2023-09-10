@@ -56,9 +56,10 @@ class QuestionOptionsDialog extends HookConsumerWidget {
                     backgroundColor: appBarColor,
                     child: Text(
                       '$e',
-                      style: Theme.of(context).textTheme.headline5!.copyWith(
-                            color: Colors.white,
-                          ),
+                      style:
+                          Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                color: Colors.white,
+                              ),
                     ),
                   ),
                 ),

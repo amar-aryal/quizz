@@ -68,11 +68,13 @@ class ScoreScreen extends HookConsumerWidget {
                           children: [
                             Text(
                               'Finish',
-                              style:
-                                  Theme.of(context).textTheme.button!.copyWith(
-                                        color: Colors.green,
-                                        fontSize: 16,
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(
+                                    color: Colors.green,
+                                    fontSize: 16,
+                                  ),
                             ),
                           ],
                         ),

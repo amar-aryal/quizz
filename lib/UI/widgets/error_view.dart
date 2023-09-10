@@ -43,7 +43,7 @@ class ErrorView extends StatelessWidget {
             ),
             child: Text(
               'Try again',
-              style: Theme.of(context).textTheme.button!.copyWith(
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     color: Colors.green,
                     fontSize: 16,
                   ),

@@ -8,14 +8,14 @@ import 'package:quizz/app_setup/network/dio_helper.dart';
 import 'package:quizz/utils/endpoints.dart';
 
 final categoryRepository = Provider<CategoryRepository>((ref) {
-  return CategoryRepository(ref.read);
+  return CategoryRepository(ref);
 });
 
 class CategoryRepository {
-  CategoryRepository(Reader read) : _read = read;
-  final Reader _read;
+  CategoryRepository(Ref ref) : _ref = ref;
+  final Ref _ref;
 
-  Dio get _dio => _read(dioProvider);
+  Dio get _dio => _ref.read(dioProvider);
 
   Future<Either<Map<String, List<dynamic>>, Failure>> getAllCategories({
     CancelToken? cancelToken,
@@ -28,7 +28,7 @@ class CategoryRepository {
       log('$response');
       final categoriesObj = Map<String, List<dynamic>>.from(response.data);
       return Left(categoriesObj);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Right(e.toFailure);
     } catch (e) {
       return Right(Failure.fromException(e));

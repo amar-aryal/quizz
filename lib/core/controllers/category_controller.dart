@@ -10,18 +10,18 @@ final categoryNotifierProvider =
 CategoryController<T> categoryController<T>(Ref ref) {
   final cancelToken = CancelToken();
   ref.onDispose(cancelToken.cancel);
-  return CategoryController<T>(ref.read, cancelToken);
+  return CategoryController<T>(ref, cancelToken);
 }
 
 class CategoryController<T> extends StateNotifier<BaseState> {
-  CategoryController(this._read, this._cancelToken)
+  CategoryController(this._ref, this._cancelToken)
       : super(const BaseState.initial());
 
-  final Reader _read;
+  final Ref _ref;
 
   final CancelToken _cancelToken;
 
-  CategoryRepository get _repo => _read(categoryRepository);
+  CategoryRepository get _repo => _ref.read(categoryRepository);
 
   Future<void> getAllCategories() async {
     state = const BaseState.loading();

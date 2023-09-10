@@ -77,9 +77,10 @@ class _CorrectAnswerWidgetState extends State<CorrectAnswerWidget>
                 child: _animation.value <= 0.5
                     ? Text(
                         'Correct Answer',
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              color: Colors.grey,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  color: Colors.grey,
+                                ),
                       )
                     : Transform(
                         alignment: FractionalOffset.center,

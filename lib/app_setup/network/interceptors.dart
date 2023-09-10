@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AppInterceptors extends Interceptor {
-  AppInterceptors(this._read, this._dio);
-  final Reader _read;
+  AppInterceptors(this._ref, this._dio);
+  final Ref _ref;
   final Dio _dio;
   @override
   Future<void> onRequest(
@@ -21,7 +21,8 @@ class AppInterceptors extends Interceptor {
   }
 
   @override
-  Future<dynamic> onError(DioError err, ErrorInterceptorHandler handler) async {
+  Future<dynamic> onError(
+      DioException err, ErrorInterceptorHandler handler) async {
     // code goes here
     return super.onError(err, handler);
   }

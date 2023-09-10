@@ -16,12 +16,12 @@ class Failure {
   final int? code;
 }
 
-extension DioErrorExtension on DioError {
+extension DioErrorExtension on DioException {
   ///
   Failure get toFailure {
     _logError(this);
 
-    var msg = message;
+    var msg = message ?? '';
 
     bool isStatusCode = response?.statusCode == 400 ||
         response?.statusCode == 401 ||
@@ -38,21 +38,21 @@ extension DioErrorExtension on DioError {
     }
 
     switch (type) {
-      case DioErrorType.cancel:
+      case DioExceptionType.cancel:
         return Failure(
           msg,
         );
-      case DioErrorType.connectTimeout:
+      case DioExceptionType.connectionTimeout:
         return Failure(
           msg,
         );
-      case DioErrorType.receiveTimeout:
+      case DioExceptionType.receiveTimeout:
         return Failure(
           msg,
         );
-      case DioErrorType.response:
+      case DioExceptionType.unknown:
         return Failure(
-          (response!.statusCode! >= 500) ? _handleError() : msg,
+          ((response?.statusCode ?? 0) >= 500) ? _handleError() : msg,
           response?.statusCode,
         );
       default:
@@ -81,7 +81,7 @@ extension DioErrorExtension on DioError {
   }
 }
 
-void _logError(DioError error) {
+void _logError(DioException error) {
   log('''\n
     ERROR       :     ${error.error}\n
     MESSAGE     :     ${error.message}\n

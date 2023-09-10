@@ -38,16 +38,18 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
         .toLowerCase()
         .replaceAll(' ', '_')
         .replaceAll('&', 'and');
-    ref.read(questionsNotifierProvider.notifier).fetchQuestions(
-          categoryTag: categoryTag,
-          limit: widget.limit,
-        );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(questionsNotifierProvider.notifier).fetchQuestions(
+            categoryTag: categoryTag,
+            limit: widget.limit,
+          );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final _pagesController = usePageController();
+    final pagesController = usePageController();
     final showTimer = ref.watch(timerOnProvider);
     return WillPopScope(
       onWillPop: () async {
@@ -67,7 +69,7 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
             return Stack(
               children: [
                 PageView.builder(
-                  controller: _pagesController,
+                  controller: pagesController,
                   itemCount: questions.length,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, i) {
@@ -86,7 +88,7 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
                                       totalQuestions: questions.length),
                                 ),
                               )
-                            : _pagesController.nextPage(
+                            : pagesController.nextPage(
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.easeInOut,
                               );

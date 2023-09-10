@@ -10,18 +10,18 @@ final questionsNotifierProvider =
 QuestionsController<T> questionsController<T>(Ref ref) {
   final cancelToken = CancelToken();
   ref.onDispose(cancelToken.cancel);
-  return QuestionsController<T>(ref.read, cancelToken);
+  return QuestionsController<T>(ref, cancelToken);
 }
 
 class QuestionsController<T> extends StateNotifier<BaseState> {
-  QuestionsController(this._read, this._cancelToken)
+  QuestionsController(this._ref, this._cancelToken)
       : super(const BaseState.initial());
 
-  final Reader _read;
+  final Ref _ref;
 
   final CancelToken _cancelToken;
 
-  QuestionsRepository get _repo => _read(questionsRepository);
+  QuestionsRepository get _repo => _ref.read(questionsRepository);
 
   Future<void> fetchQuestions({
     required String categoryTag,

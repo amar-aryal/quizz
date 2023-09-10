@@ -9,14 +9,14 @@ import 'package:quizz/core/models/question.dart';
 import 'package:quizz/utils/endpoints.dart';
 
 final questionsRepository = Provider<QuestionsRepository>((ref) {
-  return QuestionsRepository(ref.read);
+  return QuestionsRepository(ref);
 });
 
 class QuestionsRepository {
-  QuestionsRepository(Reader read) : _read = read;
-  final Reader _read;
+  QuestionsRepository(Ref ref) : _ref = ref;
+  final Ref _ref;
 
-  Dio get _dio => _read(dioProvider);
+  Dio get _dio => _ref.read(dioProvider);
 
   Future<Either<List<Question>, Failure>> fetchQuestions({
     CancelToken? cancelToken,
@@ -36,7 +36,7 @@ class QuestionsRepository {
       final qsList = List<Map<String, dynamic>>.from(response.data);
       final questionObjList = qsList.map((e) => Question.fromJson(e)).toList();
       return Left(questionObjList);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Right(e.toFailure);
     } catch (e) {
       return Right(Failure.fromException(e));
