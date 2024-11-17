@@ -20,6 +20,12 @@ class QuizTimerNotifier extends StateNotifier<BaseState> {
 
   late Timer timer;
 
+  @override
+  void dispose() {
+    super.dispose();
+    cancelTimer();
+  }
+
   void setTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) => reduceDuration());
   }
