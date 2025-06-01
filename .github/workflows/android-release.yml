@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: "zulu" # Use Zulu JDK
-          java-version: "17" # Flutter recommends Java 17 for latest versions
+          java-version: "21" # Flutter recommends Java 17 for latest versions
 
       # Set up Flutter
       - uses: subosito/flutter-action@v2
