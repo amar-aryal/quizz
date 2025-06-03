@@ -27,11 +27,35 @@ jobs:
       # Install dependencies
       - run: flutter pub get
 
-      # Run tests (optional)
-      # - run: flutter test
+      # Recreate keystore from base64
+      - name: Setup Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/upload-keystore-original.jks
+          # Verify keystore exists
+          ls -la android/app/upload-keystore-original.jks
+
+      # START USING keystore UPLOADED TO GITHUB SECRETS
+      # Create key.properties dynamically
+      - name: Configure signing
+        run: |
+          cat <<EOF > android/key.properties
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=upload-keystore-original.jks
+          EOF
+          # Protect the keystore file
+          chmod 600 android/app/upload-keystore-original.jks android/key.properties
+
+      # ----END----
 
       # Build APK
       - run: flutter build apk --release
+
+      # Immediately clean up keystore
+      - name: Remove keystore
+        if: always()
+        run: rm -f android/app/your-keystore.jks android/key.properties
 
       # Upload APK as artifact
       - uses: actions/upload-artifact@v4
