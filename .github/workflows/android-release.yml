@@ -50,8 +50,10 @@ jobs:
 
       # ----END----
 
-      # Build APK
+      # Build APK and Appbundle
       - run: flutter build apk --release
+
+      - run: flutter build appbundle --release
 
       # Upload APK and App bundle as artifacts (Optional)
       - uses: actions/upload-artifact@v4
