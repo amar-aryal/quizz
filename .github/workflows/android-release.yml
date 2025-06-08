@@ -63,7 +63,7 @@ jobs:
 
         # Upload to Google Play (using r0adkll/upload-google-play action)
       - name: Upload to Google Play
-        uses: r0adkll/upload-google-play@v2.1.1
+        uses: r0adkll/upload-google-play@d10b0f8518b7b51d4be656e3e9a0c6d0a6a5f8c7
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.amar.quizz
